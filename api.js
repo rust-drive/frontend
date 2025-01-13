@@ -33,7 +33,7 @@ export function getCookie(cname) {
 // Function for getting a token
 export async function get_token(user_id, password) {
       // the url of the token endpoint
-      const url = '/auth/get-token';
+      const url = 'http://localhost:8000/auth/get-token';
   
       // the options for the fetch request
       const options = {
