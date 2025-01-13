@@ -9,5 +9,5 @@ window.liquidEngine = liquidEngine;
 // Check if the user is logged in
 if (getCookie("token") === "") {
     // If not, redirect to login page
-    window.location.href = "/login.html";
+    window.location.href = "login.html";
 }
