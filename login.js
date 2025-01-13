@@ -6,7 +6,7 @@ if (getCookie("token") === "") {
     // If not, redirect to login page
 } else {
     // If yes, redirect to index page
-    window.location.href = "/";
+    window.location.href = "";
 }
 
 // Login
