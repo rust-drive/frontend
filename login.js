@@ -1,5 +1,5 @@
 // Imports
-import { getCookie, get_token } from "/api.js";
+import { getCookie, get_token } from "./api.js";
 
 // Check if the user is logged in
 if (getCookie("token") === "") {

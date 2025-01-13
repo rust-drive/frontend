@@ -1,5 +1,5 @@
 // Imports
-import { getCookie } from "/api.js";
+import { getCookie } from "./api.js";
 
 // Setup Liquidjs
 var Liquid = window.liquidjs.Liquid;
