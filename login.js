@@ -3,10 +3,10 @@ import { getCookie, get_token } from "./api.js";
 
 // Check if the user is logged in
 if (getCookie("token") === "") {
-    // If not, redirect to login page
+    // If not, do nothing
 } else {
     // If yes, redirect to index page
-    window.location.href = "";
+    window.location.href = "./";
 }
 
 // Login
