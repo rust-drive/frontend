@@ -3,7 +3,7 @@
 */
 
 // API
-export const backend_url = "http://localhost:8000/";
+export const backend_url = "http://localhost:8000";
 
 // Apps
 export const default_app = "files";

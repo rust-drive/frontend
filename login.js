@@ -15,5 +15,5 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const token = await get_token(username, password);
-    //window.location.href = "/";
+    window.location.href = "/";
 });
