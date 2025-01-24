@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-md-6 col-xl-9 p-0">
+		<nav class="m-3" aria-label="breadcrumb" id="breadcrumb">
+			<!-- Here the Breadcrumb will be listed -->
+		</nav>
+		<div class="list-group list-group-flush" id="filelist">
+			<!-- Here the files will be listed -->
+		</div>
+	</div>
+	<div class="col-md-6 col-xl-3 mt-3">
+		<!-- Here the Infos will be listed -->
+		<div id="inspector"></div>
+		<h3>hallo-welt.md</h3>
+		<p>Markdown document - 300kb</p>
+	</div>
+</div>
+
+<script type="text/html" id="breadcrumb-template">
+	<ol class="breadcrumb" id="bread">
+	<li class="breadcrumb-item"><a ondblclick="setPath('')">Home</a></li>
+	{% for directory in directorys %}
+		<li class="breadcrumb-item"><a ondblclick="setPath('{{ directory.link }}')">{{ directory.name }}</a></li>
+	{% endfor %}
+	</ol>
+</script>
+
+<script type="text/html" id="file-template">
+	{% for file in files %}
+		{% if file.folder %}
+			<a class="list-group-item list-group-item-action" onclick="showInfo('{{ file.name }}')" ondblclick="openFolder('{{ file.name }}')">
+				{{ file.name }}
+			</a>
+		{% else %}
+			<a class="list-group-item list-group-item-action" onclick="showInfo('{{ file.name }}')" ondblclick="openFile('{{ file.name }}')">
+				{{ file.name }}
+			</a>
+		{% endif %}
+	{% endfor %}
+	<a class="list-group-item list-group-item-action disabled" >{{ amount }} items</a>
+</script>
+
+<title>Files</title>
+
