@@ -1,0 +1,23 @@
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Flexbox for full height layout */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar takes only its height */
+nav.navbar {
+    flex-shrink: 0;
+}
+
+/* Iframe grows to fill the remaining space */
+iframe#content {
+    flex-grow: 1;
+    width: 100%;
+    border: none;
+}
