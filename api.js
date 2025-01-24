@@ -5,6 +5,9 @@
 */
 
 
+import { backend_url } from "./config.js";
+
+
 export function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -33,7 +36,7 @@ export function getCookie(cname) {
 // Function for getting a token
 export async function get_token(user_id, password) {
       // the url of the token endpoint
-      const url = 'http://localhost:8000/auth/get-token';
+      const url = backend_url + '/auth/get-token';
   
       // the options for the fetch request
       const options = {
@@ -68,7 +71,7 @@ export async function get_token(user_id, password) {
 
 // Gets a list of all files in a directory
 export async function file_list(path) {
-    const url = '/api/file-list/' + path;
+    const url = backend_url + '/api/file-list/' + path;
     const token = getCookie("token");
     const options = {
         method: 'GET',
@@ -82,7 +85,7 @@ export async function file_list(path) {
 
 // Gets the content of the file as response
 export async function file_content(params) {
-  const url = '/api/file_content/' + path;
+  const url = backend_url + '/api/file_content/' + path;
     const token = getCookie("token");
     const options = {
         method: 'GET',
