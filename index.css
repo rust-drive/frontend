@@ -21,3 +21,8 @@ iframe#content {
     width: 100%;
     border: none;
 }
+
+.navbar {
+    font-size: 1rem;
+    padding: 0.1rem 0.5rem;
+}

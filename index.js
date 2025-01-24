@@ -1,5 +1,5 @@
 // Imports
-import { getCookie } from "./api.js";
+import { getCookie, setCookie } from "./api.js";
 import { default_app, app_urls } from "./config.js";
 
 // Setup Liquidjs
@@ -17,13 +17,14 @@ for (const app in app_urls) {
     document.getElementById("apps").appendChild(entry);
 }
 
-
-// Check if the user is logged in
-if (getCookie("token") === "") {
-    // If not, redirect to login page
-    //window.location.href = "login.html";
+// Logout
+function logout() {
+    // Clear the cookie
+    setCookie("token", "", 0);
+    window.location.href = "/";
 }
-
+// make function accessible
+window.logout = logout;
 
 // Get app and set to default if none is present
 let app;
@@ -41,10 +42,16 @@ if (query_string == "") {
     app = urlParams.get('app');
 }
 
+let content_iframe = document.getElementById("content");
 
-console.log(query_string);
-
-let content_iframe =document.getElementById("content");
-content_iframe.src = app_urls[app];
-
-console.log("Loaded " + app);
+// Check if the user is logged in
+if (getCookie("token") === "") {
+    // If not, display infopage
+    //window.location.href = "login.html";
+    content_iframe.src = "infopage.html";
+    document.getElementById("login-link").style.display = "block";
+} else {
+    // If logged in, do the App Routing as default
+    content_iframe.src = app_urls[app];
+    document.getElementById("logout-link").style.display = "block";
+}
