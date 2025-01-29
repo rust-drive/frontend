@@ -9,5 +9,5 @@ export const backend_url = "http://localhost:8000";
 export const default_app = "files";
 export const app_urls = {
     files: "files/",
-    songs: "https://tc.soraxem.ch/"
+    songs: "https://tc.soraxem.ch/",
 }
