@@ -1,4 +1,14 @@
-import { file_list } from "/rsc/api.js";
+import { file_list, getCookie } from "/api.js";
+
+import * as rustdrive from "./rustdrive.js";
+
+
+if (rustdrive.standalone) {
+	console.log("files: initalizing standalone");
+	alert("This application only can be used with the Rustdrive GUI")
+} else {
+	console.log("files: initalizing in iframe");
+}
 
 class Path {
 	constructor(input) {

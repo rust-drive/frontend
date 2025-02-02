@@ -1,6 +1,6 @@
 // Imports
 import { getCookie, setCookie } from "./api.js";
-import { default_app, app_urls } from "./config.js";
+import { default_app, app_urls, backend_url } from "./config.js";
 
 // Setup Liquidjs
 var Liquid = window.liquidjs.Liquid;
@@ -54,4 +54,36 @@ if (getCookie("token") === "") {
     // If logged in, do the App Routing as default
     content_iframe.src = app_urls[app];
     document.getElementById("logout-link").style.display = "block";
+}
+
+/*
+content_iframe.onload = () => {
+    const path = new URLSearchParams(query_string).get("path");
+    content_iframe.contentWindow.postMessage(path, "*");
+    console.log("Ping");
+}
+*/
+
+
+
+
+class Configuration {
+    constructor(backend_url, default_app, app_urls) {
+        this.backend_url = backend_url; // Store the backend URL
+        this.default_app = default_app; // Store the default application
+        this.app_urls = app_urls; // Store the application URLs
+    }
+}
+
+const config = new Configuration(backend_url, default_app,app_urls);
+
+content_iframe.onload = () => {
+
+    const message = {
+        config: config,
+        token: getCookie("token")
+    };
+
+    content_iframe.contentWindow.postMessage(message, "*");
+    console.log("gui master: connecting to app");
 }
