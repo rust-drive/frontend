@@ -1,7 +1,7 @@
 /*
   API for Rust Drive.
 
-  Here all API commands are called by JS.
+  Here all API commands are called by JS
 */
 
 
@@ -30,8 +30,6 @@ export function getCookie(cname) {
     }
     return "";
   }
-
-
   
 // Function for getting a token
 export async function get_token(user_id, password) {

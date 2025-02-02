@@ -13,23 +13,25 @@
 	<div class="container-fluid">
 <div class="row">
 	<div class="col-md-6 col-xl-9 p-0">
-		<nav class="m-3" aria-label="breadcrumb" id="breadcrumb">
-			<!-- Here the Breadcrumb will be listed -->
-			<ol class="breadcrumb" id="bread">
-				<li class="breadcrumb-item"><a ondblclick="setPath('')">Home</a></li>
-				<li class="breadcrumb-item"><a ondblclick="setPath('test')">test</a></li>
+		<nav class="m-3" aria-label="breadcrumb">
+			<!-- Here the Breadcrumbs will be listed -->
+			<ol class="breadcrumb" id="breadcrumbs">
+				
 			</ol>
+
+			<template id="breadcrumb-template">
+				<li class="breadcrumb-item"><a ondblclick="">test</a></li>
+			</template>
 		</nav>
+
+		<!-- Here the files will be listed -->
 		<div class="list-group list-group-flush" id="filelist">
-			<!-- Here the files will be listed -->
-			<a class="list-group-item list-group-item-action">
-				the-text.md
-			</a>
-			<a class="list-group-item list-group-item-action">
-				the-text.md
-			</a>
-			<a class="list-group-item list-group-item-action disabled" >10 items</a>
+
 		</div>
+
+		<template id="file-template">
+			<a class="list-group-item list-group-item-action">the-text.md</a>
+		</template>
 	</div>
 	<div class="col-md-6 col-xl-3 mt-3">
 		<!-- Here the Infos will be listed -->
@@ -42,5 +44,7 @@
 </div>
 
 </body>
+
+<script type="module" src="main.js" async></script>
 
 </html>
