@@ -46,7 +46,7 @@ class Path {
 	}
 }
 
-var path = new Path(["projects","mytest"]);
+var path = new Path();
 var files;
 
 // Build Filelist
@@ -70,17 +70,24 @@ async function updateFiles() {
 	}
 	
 
-	files = await file_list(path.as_string()); 
+	files = await rustdrive.api.file_list(path.as_string()); 
 	var filelist = document.getElementById("filelist");
 	var template = document.getElementById("file-template");
 
 	filelist.innerHTML = "";
 
 	for ( const file in files ) {
-		var li = template.content.querySelector("a").cloneNode(true);
-		li.textContent = files[file].name;
-		li.ondblclick = () => openFile(files[file].name);
-		filelist.appendChild(li);
+		if (files[file].folder) {
+			var li = template.content.querySelector("a").cloneNode(true);
+			li.textContent = files[file].name;
+			li.ondblclick = () => openFolder(files[file].name);
+			filelist.appendChild(li);
+		} else {
+			var li = template.content.querySelector("a").cloneNode(true);
+			li.textContent = files[file].name;
+			li.ondblclick = () => openFile(files[file].name);
+			filelist.appendChild(li);
+		}
 	}
 
 }
@@ -111,7 +118,4 @@ function openFolder(filename) {
 window.openFolder = openFolder;
 
 
-
-updateFiles();
-
-
+rustdrive.initialize(updateFiles);

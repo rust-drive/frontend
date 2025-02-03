@@ -129,11 +129,17 @@ export const api = {
     }
 }
 
-// Receive the configuration in iframe mode
-window.addEventListener('message', (event) => {
-	config = event.data.config;
-    auth.set_token(event.data.token);
-	console.log("rustdrive: configuration recieved");
-});
+
+
+
+export function initialize(callback) {
+    // Receive the configuration in iframe mode
+    window.addEventListener('message', (event) => {
+	    config = event.data.config;
+        auth.set_token(event.data.token);
+	    console.log("rustdrive: configuration recieved");
+        callback();
+    });
+}
 
 console.log("rustdrive: module loaded");
