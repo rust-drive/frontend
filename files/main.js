@@ -1,5 +1,3 @@
-import { file_list, getCookie } from "/api.js";
-
 import * as rustdrive from "./rustdrive.js";
 
 
@@ -91,6 +89,7 @@ async function updateFiles() {
     for (const file in files) {
         var li = template.content.querySelector("a").cloneNode(true);
         li.textContent = files[file].name;
+		li.onclick = () => showInfo(files[file].name);
         if (files[file].folder) {
             li.ondblclick = () => openFolder(files[file].name);
         } else {
@@ -114,17 +113,16 @@ function openFile(filename) {
 }
 window.openFile = openFile;
 
-function setPath(new_path) {
-	path = new Path(new_path);
-	updateFiles();
-}
-window.setPath = setPath;
-
 function openFolder(filename) {
 	path.go_deeper(filename)
 	updateFiles();
 }
 window.openFolder = openFolder;
 
+function setPath(new_path) {
+	path = new Path(new_path);
+	updateFiles();
+}
+window.setPath = setPath;
 
 rustdrive.initialize(updateFiles);
