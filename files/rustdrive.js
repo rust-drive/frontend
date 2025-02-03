@@ -4,8 +4,6 @@ Successor of the api.js file
 
 */
 
-import { file_list } from "../api";
-
 export var standalone = window.self == window.top;
 
 var config;
@@ -19,6 +17,7 @@ class Configuration {
     }
 }
 
+// Implement the token storage system
 export const auth = {
 
     // Set the cookie for the given token with a given expiery date
@@ -71,6 +70,7 @@ export const auth = {
     },
 }
 
+// Implementing the API commands
 export const api = {
     async get_token(user_id, password) {
         // Make a GET request to the backend /auth/get-token endpoint
