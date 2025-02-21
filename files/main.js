@@ -1,4 +1,4 @@
-import * as rustdrive from "./rustdrive.js";
+import * as rustdrive from "../rustdrive.js";
 
 
 if (rustdrive.standalone) {
