@@ -1,7 +1,5 @@
 # Rustdrive Frontend
 
-
-
 Design Concept
 
 ```mermaid
@@ -19,12 +17,22 @@ api.js --"api"--> Backend
 subgraph App
     api.js
 end
-
-
-
-
 ```
 
-
-
 Current complications are how to refactor the api.js to make this implementations possible. It would be nice, if the api.js can get the configurations in different ways. Current plan would be to create different classes, one for configuration, one as api connector, one for the infos stored in the token ect.
+
+## Files App
+
+Heavily inspired by Finder. It sould be minimal and normal for everyone using it.
+
+### MVP Roadmap
+
+- [x] Implementing Naviagation
+
+- [ ] Implementing selections
+
+- [ ] Adding RMB Menus
+
+- [ ] Implement Management
+
+- [ ] Implement simple Data access
