@@ -163,7 +163,10 @@ function toggleSelection(event) {
 
 // Hide context menu
 document.addEventListener('click', function(e) {
+	// Toggle file selection
 	toggleSelection(e);
+
+	// Hide the context menu
 	const menu = document.getElementById('context-menu-files');
 	const emptyMenu = document.getElementById('context-menu-empty');
 	menu.style.display = 'none';

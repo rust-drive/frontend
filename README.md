@@ -1,6 +1,6 @@
 # Rustdrive Frontend
 
-Design Concept
+## Structure
 
 ```mermaid
 graph TD
@@ -10,29 +10,28 @@ subgraph Frontend
     config.js
 end
 
-Manager --"configuration"--> api.js
+Manager --"configuration"--> rustdrive.js
 Manager --"api"--> Backend
-api.js --"api"--> Backend
+rustdrive.js --"api"--> Backend
 
 subgraph App
-    api.js
+    rustdrive.js
+    internal.js
 end
 ```
 
-Current complications are how to refactor the api.js to make this implementations possible. It would be nice, if the api.js can get the configurations in different ways. Current plan would be to create different classes, one for configuration, one as api connector, one for the infos stored in the token ect.
+This structure is built, so that it is possible to have the App hosted at a different server than the manager. So multible managers could access the same apps. This way it gets very easy to try new apps before hosting them yourself.
+
+The App is embedded into the Manager via a Iframe. The manager talks to the App via post messages. The manager Informs the App with the Backend location and login data.
 
 ## Files App
 
-Heavily inspired by Finder. It sould be minimal and normal for everyone using it.
+Heavily inspired by Finder. It should be minimal and intuitive for everyone using it.
 
 ### MVP Roadmap
 
 - [x] Implementing Naviagation
-
-- [ ] Implementing selections
-
-- [ ] Adding RMB Menus
-
+- [x] Implementing selections
+- [x] Adding RMB Menus
 - [ ] Implement Management
-
 - [ ] Implement simple Data access
