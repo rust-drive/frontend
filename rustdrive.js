@@ -114,7 +114,7 @@ export const api = {
     // Make a GET request to the backend /api/file_content endpoint to get the content
     // of the file at the given path
     async file_content(path) {
-        const url = config.backend_url + '/api/file_content/' + path;
+        const url = config.backend_url + '/api/file-content/' + path;
         const token = auth.get_token();
         const options = {
             method: 'GET',
@@ -124,8 +124,9 @@ export const api = {
             }
         };
         const response = await fetch(url, options);
-        // Return the content of the file as plain text
-        return await response.text();
+
+        // Return the content of the file
+        return await response.blob();
     }
 }
 

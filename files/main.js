@@ -8,6 +8,23 @@ if (rustdrive.standalone) {
 	console.log("files: initalizing in iframe");
 }
 
+// Function for downloading a file
+async function download_file(path) {
+	// Get the file
+	const file = await rustdrive.api.file_content(path.as_string());
+
+	// Create a download link
+	const downloadLink = document.createElement('a');
+	downloadLink.href = URL.createObjectURL(file);
+	downloadLink.download = path.filename();
+	// Add the link to the DOM
+	document.body.appendChild(downloadLink);
+	// Click the link
+	downloadLink.click();
+	// Remove the link
+	document.body.removeChild(downloadLink);
+}
+
 class Path {
 	constructor(input) {
 		// Initialize list from input string or array
@@ -33,6 +50,11 @@ class Path {
 		return this.list.map((item, index) => {
 			return this.list.slice(0, index + 1).join('/');
 		});
+	}
+
+	filename() {
+		// Return the last item in the list
+		return this.list[this.list.length - 1];
 	}
 
 	go_deeper(subPath) {
