@@ -87,9 +87,9 @@ async function updateFiles() {
 
     // Add each file or folder to the file list
     for (const file in files) {
-        var li = template.content.querySelector("a").cloneNode(true);
+        var li = template.content.querySelector("li").cloneNode(true);
         li.textContent = files[file].name;
-		li.onclick = () => showInfo(files[file].name);
+		//li.onclick = () => showInfo(files[file].name);
         if (files[file].folder) {
             li.ondblclick = () => openFolder(files[file].name);
         } else {
@@ -100,6 +100,40 @@ async function updateFiles() {
 
 }
 
+// Implement selection
+document.getElementById('filelist').addEventListener('click', function(event) {
+	// Check if the clicked element is an <li> with the class 'list-group-item'
+	if (event.target.classList.contains('list-group-item')) {
+	  // If the cmd key is pressed, toggle the 'highlight' class on the clicked <li>
+	  if (event.metaKey) {
+		event.target.classList.toggle('active');
+	  } else {
+		// Remove the 'highlight' class from all <li> elements
+		var items = this.querySelectorAll('.list-group-item');
+		items.forEach(function(item) {
+		  item.classList.remove('active');
+		});
+  
+		// Add the 'highlight' class to the clicked <li>
+		event.target.classList.add('active');
+	  }
+	}
+  });
+
+// Implement context menu
+document.addEventListener('contextmenu', function(e) {
+	e.preventDefault();
+	const menu = document.getElementById('context-menu-files');
+	menu.style.display = 'block';
+	menu.style.left = `${e.pageX}px`;
+	menu.style.top = `${e.pageY}px`;
+});
+
+// Hide context menu
+document.addEventListener('click', function() {
+	const menu = document.getElementById('context-menu-files');
+	menu.style.display = 'none';
+});
 
 // Show infos of files
 var Inspector = document.getElementById("inspector");
