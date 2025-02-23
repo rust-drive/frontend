@@ -100,39 +100,74 @@ async function updateFiles() {
 
 }
 
-// Implement selection
-document.getElementById('filelist').addEventListener('click', function(event) {
-	// Check if the clicked element is an <li> with the class 'list-group-item'
-	if (event.target.classList.contains('list-group-item')) {
-	  // If the cmd key is pressed, toggle the 'highlight' class on the clicked <li>
-	  if (event.metaKey) {
-		event.target.classList.toggle('active');
-	  } else {
-		// Remove the 'highlight' class from all <li> elements
-		var items = this.querySelectorAll('.list-group-item');
-		items.forEach(function(item) {
-		  item.classList.remove('active');
-		});
-  
-		// Add the 'highlight' class to the clicked <li>
-		event.target.classList.add('active');
-	  }
-	}
-  });
-
 // Implement context menu
-document.addEventListener('contextmenu', function(e) {
-	e.preventDefault();
-	const menu = document.getElementById('context-menu-files');
-	menu.style.display = 'block';
-	menu.style.left = `${e.pageX}px`;
-	menu.style.top = `${e.pageY}px`;
+document.addEventListener('contextmenu', function(event) {
+	// Prevent the default context menu
+	event.preventDefault();
+	// Get the context menu
+	const fileMenu = document.getElementById('context-menu-files');
+	const emptyMenu = document.getElementById('context-menu-empty');
+
+	// Find the target file
+	const target = event.target.closest('.filelist-file');
+
+	// If no file was found
+	if (!target) {
+		toggleSelection(event);
+		// Hide the file menu
+		fileMenu.style.display = 'none';
+		// Set the position of the menu
+		emptyMenu.style.display = 'block';
+		emptyMenu.style.left = `${event.pageX}px`;
+		emptyMenu.style.top = `${event.pageY}px`;
+	} else {
+		// select the file, if it was not selected
+		if (!target.classList.contains('active')) {
+			toggleSelection(event);
+		}
+		// Hide the empty menu
+		emptyMenu.style.display = 'none';
+		// Set the position of the menu
+		fileMenu.style.display = 'block';
+		fileMenu.style.left = `${event.pageX}px`;
+		fileMenu.style.top = `${event.pageY}px`;
+	}
 });
 
+// Toggle file selection
+function toggleSelection(event) {
+	// Find the target file
+	const target = event.target.closest('.filelist-file');
+	// return if no file was found
+	if (!target) {
+		var items = document.querySelectorAll('.filelist-file');
+		items.forEach(function(item) {
+			item.classList.remove('active');
+		});
+		return;
+	}
+	// Check if the clicked element is an <li> with the class 'list-group-item'
+
+	if (event.metaKey) {
+		target.classList.toggle('active');
+	} else {
+		// Remove the 'highlight' class from all <li> elements
+		var items = document.querySelectorAll('.filelist-file');
+		items.forEach(function(item) {
+			item.classList.remove('active');
+		});
+		// Add the 'highlight' class to the clicked <li>
+		target.classList.add('active');
+	}
+}
+
 // Hide context menu
-document.addEventListener('click', function() {
+document.addEventListener('click', function(e) {
+	toggleSelection(e);
 	const menu = document.getElementById('context-menu-files');
+	const emptyMenu = document.getElementById('context-menu-empty');
 	menu.style.display = 'none';
+	emptyMenu.style.display = 'none';
 });
 
 // Show infos of files

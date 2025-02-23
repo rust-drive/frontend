@@ -30,7 +30,7 @@
 		</div>
 
 		<template id="file-template">
-			<li class="list-group-item list-group-item-action">the-text.md</li>
+			<li class="list-group-item list-group-item-action filelist-file">the-text.md</li>
 		</template>
 	</div>
 	<div class="col-md-6 col-xl-3 mt-3">
@@ -42,12 +42,19 @@
 	</div>
 
 	<div id="context-menu-files" class="dropdown-menu" style="width: 16rem;">
-		<a class="dropdown-item" href="#">Open</a>
-		<a class="dropdown-item" href="#">Rename</a>
-		<a class="dropdown-item" href="#">Delete</a>
-		<a class="dropdown-item" href="#">Copy</a>
-		<a class="dropdown-item" href="#">Delete</a>
-		<a class="dropdown-item" href="#">Download</a>
+		<a class="dropdown-item disabled" href="#">Open</a>
+		<a class="dropdown-item disabled" href="#">Rename</a>
+		<a class="dropdown-item disabled" href="#">Delete</a>
+		<a class="dropdown-item disabled" href="#">Copy</a>
+		<a class="dropdown-item disabled" href="#">Cut</a>
+		<a class="dropdown-item disabled" href="#">Delete</a>
+		<a class="dropdown-item disabled" href="#">Download</a>
+	</div>
+
+	<div id="context-menu-empty" class="dropdown-menu" style="width: 16rem;">
+		<a class="dropdown-item disabled" href="#">Upload</a>
+		<a class="dropdown-item disabled" href="#">New</a>
+		<a class="dropdown-item disabled" href="#">Paste</a>
 	</div>
 
 </div>
