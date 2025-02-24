@@ -142,6 +142,8 @@ document.addEventListener('contextmenu', function(event) {
 		emptyMenu.style.display = 'block';
 		emptyMenu.style.left = `${event.pageX}px`;
 		emptyMenu.style.top = `${event.pageY}px`;
+
+		
 	} else {
 		// select the file, if it was not selected
 		if (!target.classList.contains('active')) {
@@ -153,6 +155,11 @@ document.addEventListener('contextmenu', function(event) {
 		fileMenu.style.display = 'block';
 		fileMenu.style.left = `${event.pageX}px`;
 		fileMenu.style.top = `${event.pageY}px`;
+
+		// Set the download button
+		document.getElementById('context-menu-download').onclick = () => {
+			download_file(new Path( path.as_string() + "/" + target.textContent ));
+		}
 	}
 });
 

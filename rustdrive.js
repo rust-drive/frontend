@@ -127,7 +127,7 @@ export const api = {
 
         // Return the content of the file
         return await response.blob();
-    }
+    } 
 }
 
 
