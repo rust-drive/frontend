@@ -158,7 +158,14 @@ document.addEventListener('contextmenu', function(event) {
 
 		// Set the download button
 		document.getElementById('context-menu-download').onclick = () => {
-			download_file(new Path( path.as_string() + "/" + target.textContent ));
+			var items = document.querySelectorAll('.filelist-file');
+			// count all the active items
+			items.forEach(function(item) {
+				if (item.classList.contains('active')) {
+					download_file(new Path( path.as_string() + "/" + item.textContent ));
+				}
+			});
+
 		}
 	}
 });
@@ -173,21 +180,31 @@ function toggleSelection(event) {
 		items.forEach(function(item) {
 			item.classList.remove('active');
 		});
-		return;
+	} else {
+		if (event.metaKey) {
+			target.classList.toggle('active');
+		} else {
+			// Remove the 'highlight' class from all <li> elements
+			var items = document.querySelectorAll('.filelist-file');
+			items.forEach(function(item) {
+				item.classList.remove('active');
+			});
+			// Add the 'highlight' class to the clicked <li>
+			target.classList.add('active');
+		}
 	}
 	// Check if the clicked element is an <li> with the class 'list-group-item'
 
-	if (event.metaKey) {
-		target.classList.toggle('active');
-	} else {
-		// Remove the 'highlight' class from all <li> elements
-		var items = document.querySelectorAll('.filelist-file');
-		items.forEach(function(item) {
-			item.classList.remove('active');
-		});
-		// Add the 'highlight' class to the clicked <li>
-		target.classList.add('active');
-	}
+	var items = document.querySelectorAll('.filelist-file');
+	// count all the active items
+	var count = 0;
+	items.forEach(function(item) {
+		if (item.classList.contains('active')) {
+			count++;
+		}
+	});
+	// display the count in the inspector
+	document.getElementById('inspector').innerHTML = count + " files selected";
 }
 
 // Hide context menu

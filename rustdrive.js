@@ -130,9 +130,6 @@ export const api = {
     } 
 }
 
-
-
-
 export function initialize(callback) {
     // Receive the configuration in iframe mode
     window.addEventListener('message', (event) => {

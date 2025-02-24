@@ -34,4 +34,13 @@ Heavily inspired by Finder. It should be minimal and intuitive for everyone usin
 - [x] Implementing selections
 - [x] Adding RMB Menus
 - [ ] Implement Management
+  - [ ] Rename
+  - [ ] Cut
+  - [ ] Copy
+  - [ ] Paste
+  - [ ] Delete
 - [ ] Implement simple Data access
+  - [x] Download
+  - [ ] Upload
+  - [ ] Replace
+  - [ ] Metadata
