@@ -127,7 +127,37 @@ export const api = {
 
         // Return the content of the file
         return await response.blob();
-    } 
+    },
+
+    // Make a GET request to the backend /api/file-rename endpoint to rename the file
+    // at the given input path to the given output path
+    async file_rename(input, output) {
+        const url = config.backend_url + '/api/file-rename?input=' + input + '&output=' + output;
+        const token = auth.get_token();
+        const options = {
+            method: 'GET',
+            headers: {
+                // Set the Authorization header with the bearer token
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const response = await fetch(url, options);
+    },
+
+    // Make a GET request to the backend /api/file-copy endpoint to copy the file
+    // at the given input path to the given output path
+    async file_copy(input, output) {
+        const url = config.backend_url + '/api/file-copy?input=' + input + '&output=' + output;
+        const token = auth.get_token();
+        const options = {
+            method: 'GET',
+            headers: {
+                // Set the Authorization header with the bearer token
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const response = await fetch(url, options);
+    }
 }
 
 export function initialize(callback) {

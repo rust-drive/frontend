@@ -72,6 +72,10 @@ class Path {
 	}
 }
 
+// All files currently in the clipboard
+var clipboard = [];
+// Is the clipboard a copy or cut
+var clipboard_copy = false;
 var path = new Path();
 var files;
 
@@ -155,20 +159,65 @@ document.addEventListener('contextmenu', function(event) {
 		fileMenu.style.display = 'block';
 		fileMenu.style.left = `${event.pageX}px`;
 		fileMenu.style.top = `${event.pageY}px`;
-
-		// Set the download button
-		document.getElementById('context-menu-download').onclick = () => {
-			var items = document.querySelectorAll('.filelist-file');
-			// count all the active items
-			items.forEach(function(item) {
-				if (item.classList.contains('active')) {
-					download_file(new Path( path.as_string() + "/" + item.textContent ));
-				}
-			});
-
-		}
+		
 	}
 });
+
+// Set the download button
+document.getElementById('context-menu-download').onclick = () => {
+	var items = document.querySelectorAll('.filelist-file');
+	// count all the active items
+	items.forEach(function(item) {
+		if (item.classList.contains('active')) {
+			download_file(new Path( path.as_string() + "/" + item.textContent ));
+		}
+	});
+
+}
+
+
+// set the copy button
+document.getElementById('context-menu-copy').onclick = () => {
+	var items = document.querySelectorAll('.filelist-file');
+	// clear the clipboard
+	clipboard = [];
+	clipboard_copy = true;
+	// count all the active items
+	items.forEach(function(item) {
+		if (item.classList.contains('active')) {
+			clipboard.push(new Path( path.as_string() + "/" + item.textContent ));
+		}
+	});
+}
+
+// set the cut button
+document.getElementById('context-menu-cut').onclick = () => {
+	var items = document.querySelectorAll('.filelist-file');
+	// clear the clipboard
+	clipboard = [];
+	clipboard_copy = false;
+	// count all the active items
+	items.forEach(function(item) {
+		if (item.classList.contains('active')) {
+			clipboard.push(new Path( path.as_string() + "/" + item.textContent ));
+		}
+	});
+}
+
+document.getElementById('context-menu-paste').onclick = () => {
+	if (clipboard_copy) {
+		clipboard.forEach( async function(item) {
+			await rustdrive.api.file_copy(item.as_string(), (path.as_string() === '' ? '' : path.as_string() + "/") + item.filename());
+			updateFiles();
+		});
+	} else {
+		clipboard.forEach(async function(item) {
+			await rustdrive.api.file_rename(item.as_string(), (path.as_string() === '' ? '' : path.as_string() + "/") + item.filename());
+			updateFiles();
+		});
+	}
+	
+}
 
 // Toggle file selection
 function toggleSelection(event) {
