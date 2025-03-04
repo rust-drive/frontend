@@ -126,6 +126,9 @@ async function updateFiles() {
 
 }
 
+
+
+
 // Implement context menu
 document.addEventListener('contextmenu', function(event) {
 	// Prevent the default context menu
@@ -174,6 +177,68 @@ document.getElementById('context-menu-download').onclick = () => {
 	});
 
 }
+
+document.body.addEventListener("keydown", function(event) {
+    // Detect Ctrl+R (or Cmd+R on Mac) for reload
+    if ((event.ctrlKey || event.metaKey) && event.key === "v") {
+        event.preventDefault();
+        if (clipboard_copy) {
+			clipboard.forEach( async function(item) {
+				await rustdrive.api.file_copy(item.as_string(), (path.as_string() === '' ? '' : path.as_string() + "/") + item.filename());
+				updateFiles();
+			});
+		} else {
+			clipboard.forEach(async function(item) {
+				await rustdrive.api.file_rename(item.as_string(), (path.as_string() === '' ? '' : path.as_string() + "/") + item.filename());
+				updateFiles();
+			});
+		}
+    }
+
+    // Detect Ctrl+C for copy
+    if ((event.ctrlKey || event.metaKey) && event.key === "c") {
+        event.preventDefault();
+        
+		var items = document.querySelectorAll('.filelist-file');
+		// clear the clipboard
+		clipboard = [];
+		clipboard_copy = true;
+		// count all the active items
+		items.forEach(function(item) {
+			if (item.classList.contains('active')) {
+				clipboard.push(new Path( path.as_string() + "/" + item.textContent ));
+			}
+		});
+    }
+
+	// Detect Ctrl+X for copy
+    if ((event.ctrlKey || event.metaKey) && event.key === "x") {
+        event.preventDefault();
+        
+		var items = document.querySelectorAll('.filelist-file');
+		// clear the clipboard
+		clipboard = [];
+		clipboard_copy = false;
+		// count all the active items
+		items.forEach(function(item) {
+			if (item.classList.contains('active')) {
+				clipboard.push(new Path( path.as_string() + "/" + item.textContent ));
+			}
+		});
+    }
+
+	// Detect Ctrl+S for download
+    if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+        event.preventDefault();
+        var items = document.querySelectorAll('.filelist-file');
+		// count all the active items
+		items.forEach(function(item) {
+			if (item.classList.contains('active')) {
+				download_file(new Path( path.as_string() + "/" + item.textContent ));
+			}
+		});
+    }
+});
 
 
 // set the copy button
